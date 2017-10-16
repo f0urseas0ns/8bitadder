@@ -1,0 +1,45 @@
+module adder #(
+    BITS : BITS >= 2
+  (
+    input a[BITS],        // input A two 8-bit inputs
+    input b[BITS],        // input B
+    input alufn[5],       // op code 
+    output result[BITS],  // result
+    output zero,          // determine if result is zero
+    output overflow,      // determine if result overflows
+    output negative       // determine if result is negative
+  ) {
+
+  sig maybexorb[BITS]; //XB input to adder
+  sig out[BITS]; 
+  sig subtract[BITS]; //if subtract than positive
+
+  always {
+    maybexorb = b ^ alufn[0];
+    subtract = a + maybexorb;
+
+    case(alufn[2:0]){
+      b000: // add
+        out = a + b;
+      b001: // subtract
+        out = subtract;
+      b010: // multiply
+        out = a * b;
+      b011: // floor divide
+        out = a / b;
+      b100: // modulo
+        out = a - b * (a / b);
+      b101: // increment
+        out = a + 1;
+      b110: // decrement
+        out = a - 1;
+      default:
+        out = 0;
+    }
+    result = out;
+    overflow = (a[BITS-1] & maybexorb[BITS-1] & ~out[BITS-1]) | (~a[BITS-1] & ~maybexorb[BITS-1] & out[BITS-1]);
+    zero = ~|subtract;
+    negative = subtract[BITS-1];
+    
+  }
+}
