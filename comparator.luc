@@ -1,0 +1,15 @@
+module comparator (
+    input z, //zero 
+    input v, //overflow
+    input n, //negative
+    input alufn[2], //to take in alufn1 and alufn2
+    output out 
+  ) {
+
+  always {
+    out = 0;
+    if (alufn == b01) out = z; //compare if A=B
+    if (alufn == b10) out = n ^ v; //compare if A<B
+    if (alufn == b11) out = z | (n^v); //compare A <=B    
+  }
+}
