@@ -1,0 +1,30 @@
+module shifter (
+    input clk,  // clock
+    input rst,  // reset
+    input a[8],
+    input b[5],
+    input alufn[6],
+    output sum[8]
+  ) {
+
+  .clk(clk) {
+    .rst(rst) {}
+  }
+  
+  always {
+  
+    sum = 00000000;
+    
+    if (alufn[1:0] == 00) {
+      sum = a << b;
+    }
+    
+    else if (alufn[1:0] == 10) {
+      sum = a >> b;
+    }
+    
+    else if (alufn[1:0] == 11) {
+      sum = $signed(a) >>> b;
+    }
+  }
+}
