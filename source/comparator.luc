@@ -1,0 +1,23 @@
+module comparator (
+    input clk,
+    input rst,
+    input z, //zero 
+    input v, //overflow
+    input n, //negative
+    input alufn[6], //to take in alufn1 and alufn2
+    output out
+  ) {
+  
+   .clk(clk){
+    .rst(rst){}
+  }
+  
+  always {
+    out = 0;
+    if (alufn[2:1] == b01) out = z; //compare if A=B
+    if (alufn[2:1] == b10) out = n ^ v; //compare if A<B
+    if (alufn[2:1] == b11) out = z | (n^v); //compare A <=B    
+    
+  }
+    
+}

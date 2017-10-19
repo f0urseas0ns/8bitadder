@@ -1,0 +1,53 @@
+module adder (
+    //input
+    input clk,  // clock
+    input rst,  // reset
+    input a[8], // Input A 8 Bits
+    input b[8], // Inout B 8 Bits
+    input alufn[6],
+    
+    //output
+    output z[1], // Z is true if all sum, s=0
+    output v[1], // V is true if addition operation overflows
+    output n[1], // N is true if sum, s is negative
+    output s[8]//output sum
+    
+  ) {
+  
+  .clk(clk) {
+    .rst(rst) {}
+  }
+  
+  sig result[8];
+  sig xa[8];
+  sig xb[8];
+  var i;
+  
+  always {
+    
+    result = 8h00;
+    xa = a;
+    for (i = 0; i<8;i++){
+      xb[i] = b[i] ^ alufn[0];
+    }
+    
+    if (alufn[1:0] == 2b00 || alufn[1:0] == 2b01) {
+      result = xa+xb + alufn[0];
+    }
+    
+    else if (alufn[1:0] == 2b10) {
+      result = xa*xb;
+    }
+    
+    s = result;
+    if (result == 8h00) {
+      z = 1;
+    }
+    else {
+      z = 0;
+    }
+
+    n = result[7];
+    v = (xa[7] & xb[7] & (~result[7])) | ((~xa[7]) & (~xb[7]) & result[7]);
+  }
+}

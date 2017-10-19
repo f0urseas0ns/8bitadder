@@ -1,0 +1,317 @@
+module statemachine (
+    input clk,  // clock
+    input rst,  // reset
+    output a[8],
+    output b[8],
+    output z,
+    output v,
+    output n,
+    output shiftb[5],
+    input boole[8],
+    input s[8],
+    input sum[8],
+    input checker,
+    output out,
+    output alufn[6],
+    output ans[8],
+    input io_button[5]
+  ) {
+
+  .clk(clk){
+    .rst(rst){
+    dff counter[27](.clk(clk),.rst(rst));
+    fsm state = {IDLE, ADD, SUBTRACT, MULTIPLIER, OVERFLOW, CMPEQ, CMPEQF, CMPLT, CMPLTF, CMPLE, CMPLEF, AND, OR, XOR, A, NOSHIFT, LEFTSHIFT, RIGHTSHIFT, RIGHTEXTENDSHIFT, ENDSHIFT, ERROR};
+    }
+  }
+  
+  
+  always {
+    counter.d = counter.q + 1;
+    a = 8b00;
+    b = 8b00;
+    alufn = 6h00;
+    ans = 8h00;
+    z = b0;
+    v = b0;
+    n = b0;
+    out = b0;
+    shiftb = 5b00;
+    
+    case (state.q){
+      //DEFAULT STATE
+      state.IDLE:
+        alufn = 6b00;
+        a = 8b00;
+        b = 8b00;
+        ans = 8h00;
+        if (io_button[0] == 1){ //top button
+          state.d = state.ADD;
+          counter.d = 0;
+        }else if (io_button[2] == 1){ //bottom button
+          state.d = state.CMPEQ;
+          counter.d = 0;
+        }else if (io_button[3] == 1){ //left button
+          state.d = state.AND;
+          counter.d = 0;
+        }else if (io_button[4] == 1){ //right button
+          state.d = state.NOSHIFT;
+          counter.d = 0;
+        }
+        
+      //ADDITION (ADDER MODULE)
+      state.ADD:
+        alufn = 6h00;
+        a = 8h04;
+        b = 8h04;
+        ans = s;
+        if (counter.q[26]== 1) {
+          if (s == 8h08) {
+            state.d = state.SUBTRACT;
+          }
+          else {
+            state.d = state.ERROR;
+          }
+        }
+        
+         
+      //SUBTRACTION
+      state.SUBTRACT:
+
+        alufn=6h01;
+        a = 8h14;
+        b = 8h11;
+        ans = s;
+        if(counter.q[26] == 0) {
+          if (s == 8h03) {
+            state.d = state.MULTIPLIER;
+          }
+          else {
+            state.d = state.ERROR;
+          }
+        }
+      
+      //MULTIPLIER
+      state.MULTIPLIER:
+
+        alufn = 6h02;
+        a=8h04;
+        b=8h05;
+        ans = s;
+        if( counter.q[26] == 1) {
+          if (s == 8h14) {
+            state.d = state.OVERFLOW;
+          }
+          else {
+            state.d = state.ERROR;
+          }
+        }
+      //ADDITION OVERFLOWING TO ERROR
+      state.OVERFLOW:
+        
+        alufn = 6h00;
+        a = 8h99;
+        b = 8h99;
+        ans = s;
+        if (counter.q[26]== 0) {
+          if (s == 8h132) {
+            state.d = state.IDLE;
+          }
+          else {
+            state.d = state.ERROR;
+          }
+        }   
+              
+      //COMPARATOR MODULE  
+      state.CMPEQ: 
+        alufn = 6b110011;
+        a = 8b00;
+        b = 8b00;
+        z = b0; //z = 0 for true
+        out = checker;
+        if (counter.q[26] == 1){
+          if (checker == b0){ //if output is correct, will move to next state
+            state.d = state.CMPEQF;         
+            }
+          }
+        
+      state.CMPEQF: //false case for equal than 
+        alufn = 6b110011;
+        a = 8b01;
+        b = 8b00;
+        z = 8b01; //z = 1
+        out = checker;
+        if(counter.q[26] == 0){
+          if (checker == b1){ //z will output 1
+            state.d = state.CMPLT;
+            }
+          }
+        
+      state.CMPLT: //check if a < b true
+        alufn = 6b110101;
+        v = 8b01;
+        n = 8b00;
+        a = 8b00011111;
+        b = 8b01111111;
+        out = checker;
+        if (counter.q[26] == 1){
+          if (checker == b1){
+            state.d = state.CMPLTF;
+          }
+        }
+      
+        
+      state.CMPLTF: //check if a < b false
+        alufn = 6b110101;
+        a = 8b01111111;
+        b = 8b00011111;
+        v = 8b01;
+        n = 8b01;
+        out = checker;
+        if (counter.q[26] == 0){
+          if (checker == b0){
+            state.d = state.CMPLE;
+          } 
+        }
+           
+      state.CMPLE: //check if a <= b true
+        alufn = 6b110111;
+        z = 8b01;
+        v = 8b01;
+        n = 8b01;
+        //n xor v will get 0, 0 or z = 1 will output 1
+        a = 8b00011111;
+        b = 8b01111111;
+        out = checker;
+        if (counter.q[26] == 1){
+          if (checker == b1){
+            state.d = state.CMPLEF;
+          }  
+        }     
+        
+      state.CMPLEF: //check if a < b false
+        alufn = 6b110111;
+        z = 8b00;
+        v = 8b01;
+        n = 8b01;
+        a = 8b01111111;
+        b = 8b00011111;
+        out = checker;
+        if (counter.q[26] == 0){
+          if (checker == b0){
+            state.d = state.IDLE; //go back to idle state
+          }
+  
+        }  
+        
+        
+        
+      //AND (BOOLEAN MODULE)
+      state.AND:
+        alufn = 6b011000;
+        a = 8b10100101;
+        b = 8b11000011;
+        ans = boole; //ans = 10000001
+        if (counter.q[26] == 1){
+          
+            state.d = state.OR;
+      
+      }    
+      //OR  
+      state.OR:
+        alufn = 6b011110;
+        a = 8b10100101;
+        b = 8b11000011;
+        ans = boole; //ans = 11100111
+        if (counter.q[26] == 0){
+            state.d = state.XOR;
+      
+      }
+      //XOR
+      state.XOR:
+        alufn = 6b010110;
+        a = 8b10100101;
+        b = 8b11000011;
+        ans = boole; //ans = 01100110
+        if (counter.q[26] == 1){
+            state.d = state.A;
+      
+      }  
+      //A      
+      state.A:
+        alufn = 6b011010;
+        a = 8b10100101;
+        b = 8b11000011;
+        ans = boole; //ans = 10100101
+        if (counter.q[26] == 0){
+          state.d = state.IDLE;
+      }
+      
+        
+      //SHIFTER MODULE
+      state.NOSHIFT:  // no shift
+        a = 8hff;
+        shiftb = 0;
+        ans = sum;
+        alufn = 6b00;
+        if (counter.q[26] == 0) {
+          
+          state.d = state.LEFTSHIFT;
+        }
+      
+      state.LEFTSHIFT:  // left shift
+        a = 8hff;
+        shiftb = 3;
+        b = 3;
+        ans = sum;
+        alufn = 6b100000;
+        if (counter.q[26] == 1) {
+          state.d = state.RIGHTSHIFT;
+        }
+      
+      state.RIGHTSHIFT:  // right shift
+        a = 8hff;
+        shiftb = 6;
+        b = 6;
+        ans = sum;
+        alufn = 6b100010;
+        if (counter.q[26] == 0) {
+          state.d = state.RIGHTEXTENDSHIFT;
+        }
+      
+      state.RIGHTEXTENDSHIFT:  // right shift with sign extension
+        a = 8hf0;
+        shiftb = 6;
+        b = 6;
+        ans = sum;
+        alufn = 6b100011;
+        if (counter.q[26] == 1) {
+          
+          
+          state.d = state.ENDSHIFT;
+        }
+      
+      state.ENDSHIFT:  // end of shifting
+        a = sum;
+        shiftb = 0;
+        b = 0;
+        alufn = 6b000000;
+        
+        if (counter.q[26] == 0) {
+          ans = sum;          
+          state.d = state.IDLE;
+        }
+      
+      //ERROR
+      state.ERROR:
+      
+        a = 8b11111111;
+        b = 8b11111111;
+        ans = 8b11111111;
+        alufn = 6b111111;
+        out = b1;
+        if(counter.q[26] == 1){
+          state.d=state.IDLE;
+        }
+    }        
+  }
+}

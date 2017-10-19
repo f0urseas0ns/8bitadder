@@ -1,0 +1,332 @@
+
+*** Running xst
+    with args -ifn "mojo_top_0.xst" -ofn "mojo_top_0.srp" -intstyle ise
+
+Reading design: mojo_top_0.prj
+
+=========================================================================
+*                          HDL Parsing                                  *
+=========================================================================
+Analyzing Verilog file "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/statemachine_3.v" into library work
+Parsing module <statemachine_3>.
+Analyzing Verilog file "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/shifter_5.v" into library work
+Parsing module <shifter_5>.
+Analyzing Verilog file "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/reset_conditioner_1.v" into library work
+Parsing module <reset_conditioner_1>.
+Analyzing Verilog file "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/comparator_6.v" into library work
+Parsing module <comparator_6>.
+Analyzing Verilog file "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/boolean_2.v" into library work
+Parsing module <boolean_2>.
+Analyzing Verilog file "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/adder_4.v" into library work
+Parsing module <adder_4>.
+Analyzing Verilog file "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/mojo_top_0.v" into library work
+Parsing module <mojo_top_0>.
+
+=========================================================================
+*                            HDL Elaboration                            *
+=========================================================================
+
+Elaborating module <mojo_top_0>.
+
+Elaborating module <reset_conditioner_1>.
+
+Elaborating module <boolean_2>.
+
+Elaborating module <statemachine_3>.
+
+Elaborating module <adder_4>.
+WARNING:HDLCompiler:1127 - "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 95: Assignment to M_adder_z ignored, since the identifier is never used
+WARNING:HDLCompiler:1127 - "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 96: Assignment to M_adder_v ignored, since the identifier is never used
+WARNING:HDLCompiler:1127 - "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/mojo_top_0.v" Line 97: Assignment to M_adder_n ignored, since the identifier is never used
+
+Elaborating module <shifter_5>.
+
+Elaborating module <comparator_6>.
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Synthesizing Unit <mojo_top_0>.
+    Related source file is "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/mojo_top_0.v".
+WARNING:Xst:647 - Input <io_dip> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <cclk> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <spi_ss> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <spi_mosi> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <spi_sck> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <avr_tx> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <avr_rx_busy> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+INFO:Xst:3210 - "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/mojo_top_0.v" line 89: Output port <z> of the instance <adder> is unconnected or connected to loadless signal.
+INFO:Xst:3210 - "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/mojo_top_0.v" line 89: Output port <v> of the instance <adder> is unconnected or connected to loadless signal.
+INFO:Xst:3210 - "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/mojo_top_0.v" line 89: Output port <n> of the instance <adder> is unconnected or connected to loadless signal.
+    Found 1-bit tristate buffer for signal <spi_miso> created at line 127
+    Found 1-bit tristate buffer for signal <spi_channel<3>> created at line 127
+    Found 1-bit tristate buffer for signal <spi_channel<2>> created at line 127
+    Found 1-bit tristate buffer for signal <spi_channel<1>> created at line 127
+    Found 1-bit tristate buffer for signal <spi_channel<0>> created at line 127
+    Found 1-bit tristate buffer for signal <avr_rx> created at line 127
+    Summary:
+	inferred   6 Tristate(s).
+Unit <mojo_top_0> synthesized.
+
+Synthesizing Unit <reset_conditioner_1>.
+    Related source file is "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/reset_conditioner_1.v".
+    Found 4-bit register for signal <M_stage_q>.
+    Summary:
+	inferred   4 D-type flip-flop(s).
+Unit <reset_conditioner_1> synthesized.
+
+Synthesizing Unit <boolean_2>.
+    Related source file is "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/boolean_2.v".
+WARNING:Xst:647 - Input <alufn<5:4>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <clk> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <rst> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 8-bit 4-to-1 multiplexer for signal <_n0378> created at line 43.
+    Found 1-bit 4-to-1 multiplexer for signal <_n0381> created at line 13.
+    Found 1-bit 4-to-1 multiplexer for signal <_n0384> created at line 13.
+    Found 1-bit 4-to-1 multiplexer for signal <_n0387> created at line 13.
+    Found 1-bit 4-to-1 multiplexer for signal <_n0390> created at line 13.
+    Found 1-bit 4-to-1 multiplexer for signal <_n0393> created at line 13.
+    Found 1-bit 4-to-1 multiplexer for signal <_n0396> created at line 13.
+    Found 1-bit 4-to-1 multiplexer for signal <_n0399> created at line 13.
+WARNING:Xst:737 - Found 1-bit latch for signal <choice<30>>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+WARNING:Xst:737 - Found 1-bit latch for signal <choice<1>>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+WARNING:Xst:737 - Found 1-bit latch for signal <choice<0>>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+    Summary:
+	inferred   3 Latch(s).
+	inferred  99 Multiplexer(s).
+Unit <boolean_2> synthesized.
+
+Synthesizing Unit <statemachine_3>.
+    Related source file is "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/statemachine_3.v".
+WARNING:Xst:647 - Input <io_button<1:1>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 27-bit register for signal <M_counter_q>.
+    Found 5-bit register for signal <M_state_q>.
+    Found finite state machine <FSM_0> for signal <M_state_q>.
+    -----------------------------------------------------------------------
+    | States             | 21                                             |
+    | Transitions        | 55                                             |
+    | Inputs             | 10                                             |
+    | Outputs            | 41                                             |
+    | Clock              | clk (rising_edge)                              |
+    | Reset              | rst (positive)                                 |
+    | Reset type         | synchronous                                    |
+    | Reset State        | 00000                                          |
+    | Power Up State     | 00000                                          |
+    | Encoding           | auto                                           |
+    | Implementation     | LUT                                            |
+    -----------------------------------------------------------------------
+    Found 27-bit adder for signal <M_counter_q[26]_GND_36_o_add_0_OUT> created at line 57.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred  27 D-type flip-flop(s).
+	inferred  16 Multiplexer(s).
+	inferred   1 Finite State Machine(s).
+Unit <statemachine_3> synthesized.
+
+Synthesizing Unit <adder_4>.
+    Related source file is "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/adder_4.v".
+WARNING:Xst:647 - Input <alufn<5:2>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <clk> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <rst> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 8-bit adder for signal <n0043> created at line 37.
+    Found 8-bit adder for signal <a[7]_GND_37_o_add_3_OUT> created at line 37.
+    Found 8x8-bit multiplier for signal <n0035> created at line 40.
+    Summary:
+	inferred   1 Multiplier(s).
+	inferred   2 Adder/Subtractor(s).
+	inferred   2 Multiplexer(s).
+Unit <adder_4> synthesized.
+
+Synthesizing Unit <shifter_5>.
+    Related source file is "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/shifter_5.v".
+WARNING:Xst:647 - Input <alufn<5:2>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <clk> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <rst> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 8-bit shifter logical left for signal <a[7]_b[4]_shift_left_1_OUT> created at line 22
+    Found 8-bit shifter logical right for signal <a[7]_b[4]_shift_right_3_OUT> created at line 25
+    Found 8-bit shifter arithmetic right for signal <a[7]_b[4]_shift_right_5_OUT> created at line 28
+    Found 8-bit 4-to-1 multiplexer for signal <sum> created at line 13.
+    Summary:
+	inferred   4 Multiplexer(s).
+	inferred   3 Combinational logic shifter(s).
+Unit <shifter_5> synthesized.
+
+Synthesizing Unit <comparator_6>.
+    Related source file is "C:/Users/junqi/Documents/mojo/8BitALU/work/planAhead/8BitALU/8BitALU.srcs/sources_1/imports/verilog/comparator_6.v".
+WARNING:Xst:647 - Input <alufn<0:0>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <alufn<5:3>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <clk> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:647 - Input <rst> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 1-bit 4-to-1 multiplexer for signal <out> created at line 14.
+    Summary:
+	inferred   1 Multiplexer(s).
+Unit <comparator_6> synthesized.
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# Multipliers                                          : 1
+ 8x8-bit multiplier                                    : 1
+# Adders/Subtractors                                   : 3
+ 27-bit adder                                          : 1
+ 8-bit adder                                           : 2
+# Registers                                            : 2
+ 27-bit register                                       : 1
+ 4-bit register                                        : 1
+# Latches                                              : 3
+ 1-bit latch                                           : 3
+# Multiplexers                                         : 122
+ 1-bit 2-to-1 multiplexer                              : 60
+ 1-bit 4-to-1 multiplexer                              : 8
+ 27-bit 2-to-1 multiplexer                             : 4
+ 32-bit 2-to-1 multiplexer                             : 32
+ 8-bit 2-to-1 multiplexer                              : 16
+ 8-bit 4-to-1 multiplexer                              : 2
+# Logic shifters                                       : 3
+ 8-bit shifter arithmetic right                        : 1
+ 8-bit shifter logical left                            : 1
+ 8-bit shifter logical right                           : 1
+# Tristates                                            : 6
+ 1-bit tristate buffer                                 : 6
+# FSMs                                                 : 1
+# Xors                                                 : 9
+ 1-bit xor2                                            : 9
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# Multipliers                                          : 1
+ 8x8-bit multiplier                                    : 1
+# Adders/Subtractors                                   : 2
+ 27-bit adder                                          : 1
+ 8-bit adder carry in                                  : 1
+# Registers                                            : 31
+ Flip-Flops                                            : 31
+# Multiplexers                                         : 122
+ 1-bit 2-to-1 multiplexer                              : 60
+ 1-bit 4-to-1 multiplexer                              : 8
+ 27-bit 2-to-1 multiplexer                             : 4
+ 32-bit 2-to-1 multiplexer                             : 32
+ 8-bit 2-to-1 multiplexer                              : 16
+ 8-bit 4-to-1 multiplexer                              : 2
+# Logic shifters                                       : 3
+ 8-bit shifter arithmetic right                        : 1
+ 8-bit shifter logical left                            : 1
+ 8-bit shifter logical right                           : 1
+# FSMs                                                 : 1
+# Xors                                                 : 9
+ 1-bit xor2                                            : 9
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+WARNING:Xst:1710 - FF/Latch <choice_30> (without init value) has a constant value of 0 in block <boolean_2>. This FF/Latch will be trimmed during the optimization process.
+Analyzing FSM <MFsm> for best encoding.
+Optimizing FSM <sm/FSM_0> on signal <M_state_q[1:5]> with sequential encoding.
+-------------------
+ State | Encoding
+-------------------
+ 00000 | 00000
+ 01111 | 00001
+ 01011 | 00010
+ 00101 | 00011
+ 00001 | 00100
+ 10100 | 00101
+ 00010 | 00110
+ 00011 | 00111
+ 00100 | 01000
+ 00110 | 01001
+ 00111 | 01010
+ 01000 | 01011
+ 01001 | 01100
+ 01010 | 01101
+ 01100 | 01110
+ 01101 | 01111
+ 01110 | 10000
+ 10000 | 10001
+ 10001 | 10010
+ 10010 | 10011
+ 10011 | 10100
+-------------------
+
+Optimizing unit <mojo_top_0> ...
+
+Optimizing unit <statemachine_3> ...
+
+Optimizing unit <boolean_2> ...
+
+Optimizing unit <adder_4> ...
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 0) on block mojo_top_0, actual ratio is 4.
+FlipFlop sm/M_state_q_FSM_FFd1 has been replicated 2 time(s)
+FlipFlop sm/M_state_q_FSM_FFd2 has been replicated 1 time(s)
+FlipFlop sm/M_state_q_FSM_FFd3 has been replicated 1 time(s)
+FlipFlop sm/M_state_q_FSM_FFd4 has been replicated 1 time(s)
+FlipFlop sm/M_state_q_FSM_FFd5 has been replicated 1 time(s)
+
+Final Macro Processing ...
+
+Processing Unit <mojo_top_0> :
+INFO:Xst:741 - HDL ADVISOR - A 4-bit shift register was found for signal <reset_cond/M_stage_q_3> and currently occupies 4 logic cells (2 slices). Removing the set/reset logic would take advantage of SRL32 (and derived) primitives and reduce this to 1 logic cells (1 slices). Evaluate if the set/reset can be removed for this simple shift register. The majority of simple pipeline structures do not need to be set/reset operationally.
+Unit <mojo_top_0> processed.
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 42
+ Flip-Flops                                            : 42
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Design Summary                             *
+=========================================================================
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+clk                                | BUFGP                  | 42    |
+-----------------------------------+------------------------+-------+
+
+Asynchronous Control Signals Information:
+----------------------------------------
+No asynchronous control signals found in this design
+
+Timing Summary:
+---------------
+Speed Grade: -2
+
+   Minimum period: 45.076ns (Maximum Frequency: 22.185MHz)
+   Minimum input arrival time before clock: 5.357ns
+   Maximum output required time after clock: 47.193ns
+   Maximum combinational path delay: No path found
+
+=========================================================================
