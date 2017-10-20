@@ -20,7 +20,7 @@ module statemachine (
   .clk(clk){
     .rst(rst){
     dff counter[27](.clk(clk),.rst(rst));
-    fsm state = {IDLE, ADD, SUBTRACT, MULTIPLIER, OVERFLOW, CMPEQ, CMPEQF, CMPLT, CMPLTF, CMPLE, CMPLEF, AND, OR, XOR, A, NOSHIFT, LEFTSHIFT, RIGHTSHIFT, RIGHTEXTENDSHIFT, ENDSHIFT, ERROR};
+    fsm state = {IDLE, ADD, SUBTRACT, MULTIPLIER, OVERFLOW, FORCE, CMPEQ, CMPEQF, CMPLT, CMPLTF, CMPLE, CMPLEF, AND, OR, XOR, A, NOSHIFT, LEFTSHIFT, RIGHTSHIFT, RIGHTEXTENDSHIFT, ENDSHIFT, ERROR};
     }
   }
   
@@ -105,7 +105,7 @@ module statemachine (
             state.d = state.ERROR;
           }
         }
-      //ADDITION OVERFLOWING TO ERROR
+      //ADDITION OVERFLOWING
       state.OVERFLOW:
         
         alufn = 6h00;
@@ -114,13 +114,28 @@ module statemachine (
         ans = s;
         if (counter.q[26]== 0) {
           if (s == 8h132) {
-            state.d = state.IDLE;
+            state.d = state.FORCE;
           }
           else {
             state.d = state.ERROR;
           }
         }   
-              
+        
+      //FORCED ERROR
+      state.FORCE:       
+        alufn = 6h00;
+        a = 8h01;
+        b = 8h01;
+        ans = s;
+        if (counter.q[26]== 1) {
+          if (s == 8h15) {
+            state.d = state.IDLE;
+          }
+          else {
+            state.d = state.ERROR;
+          }
+        }          
+               
       //COMPARATOR MODULE  
       state.CMPEQ: 
         alufn = 6b110011;
@@ -144,6 +159,9 @@ module statemachine (
           if (checker == b1){ //z will output 1
             state.d = state.CMPLT;
             }
+          else {
+            state.d = state.ERROR;
+          }
           }
         
       state.CMPLT: //check if a < b true
@@ -156,6 +174,9 @@ module statemachine (
         if (counter.q[26] == 1){
           if (checker == b1){
             state.d = state.CMPLTF;
+          }
+          else {
+            state.d = state.ERROR;
           }
         }
       
@@ -171,6 +192,9 @@ module statemachine (
           if (checker == b0){
             state.d = state.CMPLE;
           } 
+          else {
+            state.d = state.ERROR;
+          }
         }
            
       state.CMPLE: //check if a <= b true
@@ -186,6 +210,9 @@ module statemachine (
           if (checker == b1){
             state.d = state.CMPLEF;
           }  
+          else {
+            state.d = state.ERROR;
+          }
         }     
         
       state.CMPLEF: //check if a < b false
@@ -200,6 +227,9 @@ module statemachine (
           if (checker == b0){
             state.d = state.IDLE; //go back to idle state
           }
+          else {
+            state.d = state.ERROR;
+          }
   
         }  
         
@@ -212,9 +242,12 @@ module statemachine (
         b = 8b11000011;
         ans = boole; //ans = 10000001
         if (counter.q[26] == 1){
-          
+          if (boole == b10000001){
             state.d = state.OR;
-      
+          }
+          else {
+            state.d = state.ERROR;
+          }
       }    
       //OR  
       state.OR:
@@ -223,8 +256,13 @@ module statemachine (
         b = 8b11000011;
         ans = boole; //ans = 11100111
         if (counter.q[26] == 0){
+          if (boole == 11100111){  
+          
             state.d = state.XOR;
-      
+          }
+          else {
+            state.d = state.ERROR;
+          }
       }
       //XOR
       state.XOR:
@@ -233,8 +271,12 @@ module statemachine (
         b = 8b11000011;
         ans = boole; //ans = 01100110
         if (counter.q[26] == 1){
+          if (boole == 01100110){  
             state.d = state.A;
-      
+          }
+          else {
+            state.d = state.ERROR;
+          }          
       }  
       //A      
       state.A:
@@ -243,7 +285,12 @@ module statemachine (
         b = 8b11000011;
         ans = boole; //ans = 10100101
         if (counter.q[26] == 0){
-          state.d = state.IDLE;
+          if (boole == 10100101){
+            state.d = state.IDLE;
+          }
+          else {
+            state.d = state.ERROR;
+          }          
       }
       
         
