@@ -356,7 +356,7 @@ module statemachine (
         ans = 8b11111111;
         alufn = 6b111111;
         out = b1;
-        if(counter.q[26] == 1){
+        if(counter.q[26] == 0){
           state.d=state.IDLE;
         }
     }        
