@@ -256,7 +256,7 @@ module statemachine (
         b = 8b11000011;
         ans = boole; //ans = 11100111
         if (counter.q[26] == 0){
-          if (boole == 11100111){  
+          if (boole == b11100111){  
           
             state.d = state.XOR;
           }
@@ -271,7 +271,7 @@ module statemachine (
         b = 8b11000011;
         ans = boole; //ans = 01100110
         if (counter.q[26] == 1){
-          if (boole == 01100110){  
+          if (boole == b01100110){  
             state.d = state.A;
           }
           else {
@@ -285,7 +285,7 @@ module statemachine (
         b = 8b11000011;
         ans = boole; //ans = 10100101
         if (counter.q[26] == 0){
-          if (boole == 10100101){
+          if (boole == b10100101){
             state.d = state.IDLE;
           }
           else {
